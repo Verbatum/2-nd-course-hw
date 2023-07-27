@@ -22,6 +22,7 @@ body, select{
   flex-direction: column;
   flex-wrap: wrap;
 }
+
 .header{
   padding-top: 217px;
   padding-bottom: 493px;
