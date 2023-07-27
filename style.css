@@ -1,14 +1,17 @@
 * {
   margin: 0;
   padding: 0;
-  }
-body, select {
+}
+
+body, select{
   font-family: "Montserrat", sans-serif;
-  }
-.center {
+}
+
+.center{
   padding-left: calc(50% - 600px);
   padding-right: calc(50% - 600px);
-  }
+}
+
 .top{
   background-image: url(img/bcg.jpg);
   background-repeat: no-repeat;
@@ -18,11 +21,13 @@ body, select {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  }
+}
+
 .header{
   padding-top: 217px;
   padding-bottom: 493px;
 }
+
 .header__title{
   width: 788px;
   color: #FFF;
@@ -33,6 +38,7 @@ body, select {
   padding-top: 217px;
   padding-bottom: 32px;
 }
+
 .header__text{
   width: 481px;
   color: #FFF;
@@ -42,6 +48,7 @@ body, select {
   font-size: 18px;
   padding-bottom: 44px;
 }
+
 .header__button{
   color: #FFF;
   font-size: 18px;
@@ -53,6 +60,7 @@ body, select {
   height: 48.6px;
   border: none;
 }
+
 .games{
   height: 556px;
   background-image: url(img/bcg2.jpg);
@@ -60,6 +68,7 @@ body, select {
   background-position: center;
   background-size: cover;
 }
+
 .games__wrapper{
   display: grid;
   column-gap: 32px;
@@ -67,19 +76,23 @@ body, select {
   padding-bottom: 128px;
   grid-template-columns: repeat(12, 1fr);
 }
+
 .games__item--one {
   background-image: url(img/Game\ 1.jpg);
   background: linear-gradient(180deg, rgba(39, 1, 15, 0.00) 0%,#001944 100%), url(img/Game\ 1.jpg), lightgray 50% / coverno-repeat;
-  }
-  .games__item--two {
+}
+
+.games__item--two {
   background-image: url(img/Game\ 2.jpg);
   background: linear-gradient(180deg, rgba(39, 1, 15, 0.00) 0%,#001944 100%), url(img/Game\ 2.jpg), lightgray 50% / coverno-repeat;
-  }
-  .games__item--three {
+}
+
+.games__item--three {
   background-image: url(img/Game\ 3.jpg);
   background: linear-gradient(180deg, rgba(39, 1, 15, 0.00) 0%,#001944 100%), url(img/Game\ 3.jpg), lightgray 50% / coverno-repeat;
-  }
-  .games__item{
+}
+
+.games__item{
   grid-column: span 4;
   height: 300px;
   width: 379px;
@@ -94,5 +107,5 @@ body, select {
   box-sizing: border-box;
   padding: 32px;
   border-radius: 16px;
-  }
+}
   
