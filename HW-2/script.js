@@ -44,7 +44,7 @@ let user = {
 delete user.cityOfResidence;
 user.age = 37;
 
-let info = prompt("Что вы хотите узнать о пользователе?", "name");
+let info = prompt("Какую информацию хотите узнать о пользователе?", "name");
 
 let userName = prompt('Введите как вас зовут?');
 alert(`Привет, ${userName}!`);
