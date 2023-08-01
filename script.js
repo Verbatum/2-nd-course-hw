@@ -1,51 +1,59 @@
-let a = 20;
-alert(a);
+let password = 'пароль';
+let validation = prompt ('Введите пароль');
+validation = password ? 'Пароль введен верно' : 'Пароль введен неправильно';
+alert (validation);
 
-let year = 2007;
-alert(year);
+let c = Number(prompt('Введите число'));
+(c > 0 && c <10) ? console.log('Верно') : console.log('Неверно');
 
-let creatorName = `Brendan Eich`;
-alert(creatorName);
+let d = Number(prompt('Введите число'));
+let e = Number(prompt('Введите число'));
+(d > 100 || c > 100) ? console.log('Верно') : console.log('Неверно');
 
-let x = 10;
-let y=2;
-alert(x/y);
-alert(x+y);
-alert(x-y);
-alert(x*y);
+let a = '2';
+let b = '3';
+alert(+a + +b);
 
-let number = 2;
-let result = 2**5;
-alert(result);
+let monthNumber = prompt('Введите номер месяца');
+switch (monthNumber) {
+    case '1':
+        console.log('Зима')
+        break;
+    case '2':
+        console.log('Зима')
+        break;
+    case '3':
+        console.log('Весна')
+        break;
+    case '4':
+        console.log('Весна')
+        break;
+    case '5':
+        console.log('Весна')
+        break;
+    case '6':
+        console.log('Лето')
+        break;
+    case '7':
+        console.log('Лето')
+        break;
+    case '8':
+        console.log('Лето')
+        break;
+    case '9':
+        console.log('Осень')
+        break;
+    case '10':
+        console.log('Осень')
+        break;
+    case '11':
+        console.log('Осень')
+        break;
+    case '12':
+        console.log('Зима')
+        break;
 
-let A = 9;
-let B = 2;
-alert(A%B);
-
-let num = 1;
-num += 5;
-num -= 3;
-num *= 7;
-num /= 3;
-num++;
-num--;
-alert(num);
-
-let age = prompt('Сколько вам лет?');
-let Result = age;
-alert(Result);
-
-let user = {
-	name: 'Alex',
-	age: 38,
-    isAdmin: true,
-    cityOfResidence: 'Moscow'
-};
-delete user.cityOfResidence;
-user.age = 37;
-
-let info = prompt("Какую информацию хотите узнать о пользователе?", "name");
-alert( user[info] );
-
-let userName = prompt('Введите как вас зовут?');
-alert(`Привет, ${userName}!`);
+    default:
+        console.log('Такого месяца не существует')
+        break;
+}
