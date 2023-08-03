@@ -21,7 +21,6 @@ const salary = {
 	"300": "Вася",
 	"400": "Петя",
 };
-
 for (let key in salary) {
     console.log(salary[key], '— зарплата', key, 'долларов');
 }
