@@ -1,6 +1,6 @@
 let password = 'пароль';
 let validation = prompt ('Введите пароль');
-if (validation == password) {
+if (validation === password) {
     alert('Пароль введен верно');
 } else {
     alert('Пароль введен неправильно')
