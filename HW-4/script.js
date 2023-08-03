@@ -24,7 +24,6 @@ const salary = {
 for (let key in salary) {
     console.log(salary[key], '— зарплата', key, 'долларов');
 }
-
 let n = 1000;
 let num = 0;
 while (n >= 50) {
