@@ -24,6 +24,7 @@ const salary = {
 for (let key in salary) {
     console.log(salary[key], '— зарплата', key, 'долларов');
 }
+
 let n = 1000;
 let num = 0;
 while (n >= 50) {
@@ -35,6 +36,20 @@ while (n >= 50) {
 
 for (let friday = 4; friday <= 31; friday++) {
     if (friday === 4 || friday === 11 || friday === 18 || friday === 25) {
-        console.log(`Сегодня пятница, ${friday}`, "число. Необходимо подготовить отчет.");
+        console.log(`Сегодня пятница, ${friday}-е`, "число. Необходимо подготовить отчет.");
     }
 }
+
+//const year = Number (prompt ('Введите год'));
+//if (year % 4 === 0) {
+//    alert ('Год високосный')     
+//} else if (year % 400 !== 0) {
+//    alert ('Год не високосный')
+//}
+//else {
+//    alert ('Год не високосный')
+//}
+
+//for (let dayFriday = 2; dayFriday <= 31; dayFriday += 7) { 
+//	console.log(`Сегодня пятница, ${dayFriday}-е число. Необходимо подготовить отчет.`);
+//}
