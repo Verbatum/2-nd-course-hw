@@ -1,10 +1,10 @@
 let a = 20;
 alert(a);
 
-let year = 2007;
+const year = 2007;
 alert(year);
 
-let creatorName = `Brendan Eich`;
+const creatorName = `Brendan Eich`;
 alert(creatorName);
 
 let x = 10;
@@ -14,8 +14,8 @@ alert(x+y);
 alert(x-y);
 alert(x*y);
 
-let number = 2;
-let result = 2**5;
+let c = 2;
+let result = c**5;
 alert(result);
 
 let A = 9;

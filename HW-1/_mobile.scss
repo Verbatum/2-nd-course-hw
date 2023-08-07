@@ -52,4 +52,40 @@
             width: 343px;
         }
     }
+    .seasons {
+        height: 653.61px;
+        grid-template-columns: repeat(4, 1fr);
+        justify-items: center;
+        align-content: space-between;
+    }
+
+    .description{
+        padding-top: 51px;
+        height: 217.6px;
+        width: 343px;
+        grid-column: span 4;
+        text-align: center;
+
+        &__title{
+            width: 243px;
+            font-size: 32px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+        &__text{
+            width: 343px;
+            line-height: 22px;
+            font-size: 14px;
+        }
+        &__item{
+            grid-column: span 4;
+            height: 236px;
+            width: 344px;
+            padding-bottom: 85px;
+        }
+    }
+    .picture{
+        height: 236px;
+        width: 344px;
+    }
 }

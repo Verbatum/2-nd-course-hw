@@ -115,7 +115,69 @@ select {
 }
 
 .games__item:hover {
-  border: 3px solid #44d2ff;
+  outline: 3px solid #44d2ff;
+}
+
+.seasons {
+  height: 800px;
+  background-image: url(img/bcg3.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  -moz-column-gap: 32px;
+       column-gap: 32px;
+  align-items: center;
+}
+
+.description {
+  height: 235.6px;
+  width: 584px;
+  grid-column: span 6;
+}
+
+.description__title {
+  width: 377px;
+  color: #fff;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-bottom: 32px;
+}
+
+.description__text {
+  width: 584px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 32px;
+  font-size: 18px;
+  padding-bottom: 32px;
+}
+
+.description__button {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  border-radius: 30px;
+  background: #9c0332;
+  width: 234.06px;
+  height: 48.6px;
+  border: none;
+}
+
+.description__button:hover {
+  background: #eb443f;
+}
+
+.description__item {
+  height: 333px;
+  width: 485px;
+  grid-column-start: 8;
+  grid-column-end: 13;
 }
 
 @media (max-width: 767px) {
@@ -168,5 +230,39 @@ select {
   }
   .games__item {
     width: 343px;
+  }
+  .seasons {
+    height: 653.61px;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-content: space-between;
+  }
+  .description {
+    padding-top: 51px;
+    height: 217.6px;
+    width: 343px;
+    grid-column: span 4;
+    text-align: center;
+  }
+  .description__title {
+    width: 243px;
+    font-size: 32px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .description__text {
+    width: 343px;
+    line-height: 22px;
+    font-size: 14px;
+  }
+  .description__item {
+    grid-column: span 4;
+    height: 236px;
+    width: 344px;
+    padding-bottom: 85px;
+  }
+  .picture {
+    height: 236px;
+    width: 344px;
   }
 }/*# sourceMappingURL=style.css.map */
