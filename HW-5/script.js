@@ -13,7 +13,7 @@ console.log(lowerValue(8, 4))
 function parity() {
     let c = prompt('Введите число');
 
-    if (c % 2 == 0) {
+    if (c % 2 === 0) {
         return 'Число четное';
     } else {
         return 'Число нечетное';
