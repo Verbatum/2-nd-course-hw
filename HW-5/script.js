@@ -47,13 +47,13 @@ function age(){
 
     if (confirm < 0) {
         return 'Вы ввели неправильное значение';
+    } else if (!confirm.trim()) {
+        return 'Вы не ввели данные'
     } else if(confirm <= 12) {
         return 'Привет, друг!'
     } else if(confirm > 12) {
         return ('Добро пожаловать!')
-    } else if (!confirm.trim()) {
-        return 'Вы не ввели данные'
-    }
+    } 
 }
 
 alert (age());
