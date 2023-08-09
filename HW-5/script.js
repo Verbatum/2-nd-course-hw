@@ -47,13 +47,15 @@ function age(){
 
     if (confirm < 0) {
         return 'Вы ввели неправильное значение';
-    } else if(confirm === 0 || confirm <= 12) {
+    } else if(confirm <= 12) {
         return 'Привет, друг!'
-    }
-    else if(confirm >12) {
+    } else if(confirm > 12) {
         return ('Добро пожаловать!')
+    } else if (!confirm.trim()) {
+        return 'Вы не ввели данные'
     }
 }
+
 alert (age());
 
 //
@@ -62,11 +64,14 @@ function ageVerification() {
     let e = prompt('Введите первое число');
     let f = prompt('Введите второе число');
     
-    if (isFinite(e) || isFinite(f)) {
-        return e * f;
-    } else{
+    if (isNaN(e) || isNaN(f)) {
         return 'Одно или два значения не являются числом'
+    } else if (!e.trim() || !f.trim()) {
+        return 'Вы не ввели данные'
     }
+    else{
+        return e * f;
+    } 
     
 }
 alert (ageVerification());
@@ -76,12 +81,13 @@ alert (ageVerification());
 function number() {
     let g = prompt ('Введите число');
 
-    if (isFinite(g)) {
-        return `${g} в кубе равняется ${g ** 3}`;
-    } else {
+    if (isNaN(g)) {
         return 'Переданный параметр не является числом';
+    } else if (!g.trim()) {
+        return 'Вы не ввели данные'
+    } else {
+        return `${g} в кубе равняется ${g ** 3}`;    
     }
-    
 }
 alert (number());
 
@@ -90,10 +96,10 @@ alert (number());
 const circle1 = {
     radius: 5,
     getArea: function() {
-        return 3.14 * (circle1.radius ** 2)
+        return Math.PI * (this.radius ** 2)
     },
     getPerimeter: function() {
-        return 2 * 3.14 * circle1.radius
+        return 2 * Math.PI * this.radius
     }
 }
 console.log(circle1.getArea());
@@ -102,10 +108,10 @@ console.log(circle1.getPerimeter());
 const circle2 = {
     radius: 7,
     getArea: function() {
-        return 3.14 * (circle2.radius ** 2)
+        return Math.PI * (this.radius ** 2)
     },
     getPerimeter: function() {
-        return 2 * 3.14 * circle2.radius
+        return 2 * Math.PI * this.radius
     }
 }
 console.log(circle2.getArea());
