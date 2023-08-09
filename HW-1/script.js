@@ -9,7 +9,7 @@ function seasons() {
         return alert('Лето');
     } else if (monthNumber == 9 || monthNumber == 10 || monthNumber == 11){
         return alert('Осень');
-    } else if (monthNumber > 12 || isNaN(monthNumber) || !monthNumber.trim() || monthNumber <= 0){
+    } else if (monthNumber > 12 || isNaN(monthNumber) || monthNumber <= 0){
         return alert('Нет такого месяца');
     }
 }
