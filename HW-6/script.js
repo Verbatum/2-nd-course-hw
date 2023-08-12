@@ -1,7 +1,7 @@
 let numbers = [1, 5, 4, 10, 0, 3];
 
 for (let i = 0; i < numbers.length; i++) {
-    if (numbers[i] == 10) break;
+    if (numbers[i] === 0) break;
     console.log(numbers[i]);
     
 }
@@ -94,8 +94,7 @@ console.log(getLength(['яблоко', '', 'не', 'длинное предло�
 
 //
 
-function invert(array) {
-    for (let i = 0; i < array.length; i++) array[i] = -array[i] || 0;
-    return array ;
- }
- console.log(invert([10, 15, 8, 9, 7, 0]))
+function filterPositive(arr) {
+   arr.filter(item => item < 0) .sort((a, b) => b - a);
+}
+console.log(filterPositive([-1, 0, 5, -10, 56]));
