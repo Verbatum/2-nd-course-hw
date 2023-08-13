@@ -53,10 +53,10 @@ console.log(massive);
 const secret = [9, 8, 7, 6, 5];
 let userAnswer = prompt('Угадай число');
 
-if (userAnswer > 9 || userAnswer < 5 || isNaN(userAnswer)) {
-    alert('Не угадал')
-}  else {
-    alert('Угадал')
+if (userAnswer == secret[0] || userAnswer == secret[1] || userAnswer == secret[2] || userAnswer == secret[3] || userAnswer == secret[4] ) {
+    alert('Угадал');
+} else {
+    alert('Не угадал');
 }
 
 //
@@ -76,9 +76,13 @@ console.log(double.flat());
 //
 
 let arry = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-for (let i = 0; i < arry.length-1; i++) arry[i] = arry[i] + arry[i+1];
-    
-console.log(arry);
+
+for (let i = 0; i < arry.length-1; i++) {
+    arry[i] = arry[i] + arry[i+1]; 
+    if (arry[i] === []) break; 
+    console.log(arry[i]);
+
+}
 
 //
 
@@ -95,6 +99,8 @@ console.log(getLength(['яблоко', '', 'не', 'длинное предло�
 //
 
 function filterPositive(arr) {
-   arr.filter(item => item < 0) .sort((a, b) => b - a);
+   let res = arr.filter(item => item < 0);
+   return res;
 }
 console.log(filterPositive([-1, 0, 5, -10, 56]));
+console.log(filterPositive([-25, 25, 0, -1000, -2]));
