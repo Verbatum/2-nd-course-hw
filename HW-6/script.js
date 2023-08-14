@@ -51,13 +51,9 @@ console.log(massive);
 //
 
 const secret = [9, 8, 7, 6, 5];
-let userAnswer = prompt('Угадай число');
+let userAnswer = secret.includes(Number(prompt('Угадай число'))) ? 'Угадал' : 'Не угадал';
 
-if (userAnswer == secret[0] || userAnswer == secret[1] || userAnswer == secret[2] || userAnswer == secret[3] || userAnswer == secret[4] ) {
-    alert('Угадал');
-} else {
-    alert('Не угадал');
-}
+alert(userAnswer);
 
 //
 
@@ -78,10 +74,7 @@ console.log(double.flat());
 let arry = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 for (let i = 0; i < arry.length-1; i++) {
-    arry[i] = arry[i] + arry[i+1]; 
-    if (arry[i] === []) break; 
-    console.log(arry[i]);
-
+    console.log(arry[i] + arry[i+1]);
 }
 
 //
@@ -104,3 +97,32 @@ function filterPositive(arr) {
 }
 console.log(filterPositive([-1, 0, 5, -10, 56]));
 console.log(filterPositive([-25, 25, 0, -1000, -2]));
+
+
+/* let array1 = [1, 2, 3, 4, 5];
+let array2 = [4, 5, 6, 7, 8];
+
+function getArray(firstArray, secondArray) {
+    return firstArray.filter((i) => !secondArray.includes(i)); 
+}
+console.log(getArray(array1, array2));
+
+
+const indString = (arr, str) => {
+    return arr.indexOf(str) < 0 ? 'Не найдено' : arr.indexOf(str);
+}
+
+console.log (indString(['ckj', 'словос'], 'слово'))
+
+
+function getSum(c) {
+    return c.reduce((sum, item) => sum + item, 0) // 0 - здесь задает значение для sum
+}
+let c = [5, 8, 6, 0]
+console.log(getSum(c))
+
+
+function getString(arr) {
+    return arr.join(', ')
+}
+console.log(getString([9, 8, 7, 6, 5])) */
