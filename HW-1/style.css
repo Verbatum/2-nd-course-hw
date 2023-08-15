@@ -180,7 +180,73 @@ select {
   grid-column-end: 13;
 }
 
-@media (max-width: 767px) {
+.wordGame {
+  height: 800px;
+  background-image: url(img/bcg4.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  -moz-column-gap: 32px;
+       column-gap: 32px;
+  align-items: center;
+}
+
+.overview__item {
+  height: 333px;
+  width: 485px;
+  grid-column: span 5;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+}
+
+.overview {
+  height: 235.6px;
+  width: 584px;
+  grid-column: span 6;
+  grid-column-start: 7;
+  grid-column-end: 13;
+}
+
+.overview__title {
+  width: 377px;
+  color: #fff;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-bottom: 32px;
+}
+
+.overview__text {
+  width: 584px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 32px;
+  font-size: 18px;
+  padding-bottom: 32px;
+}
+
+.overview__button {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  border-radius: 30px;
+  background: #9c0332;
+  width: 234.06px;
+  height: 48.6px;
+  border: none;
+}
+
+.overview__button:hover {
+  background: #eb443f;
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
   .center {
     padding-left: 16px;
     padding-right: 16px;
@@ -263,6 +329,47 @@ select {
   }
   .picture {
     height: 236px;
+    width: 344px;
+  }
+  .wordGame {
+    height: 653.61px;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-content: space-between;
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 37px;
+  }
+  .overview__item {
+    grid-column: span 4;
+    height: 231px;
+    width: 344px;
+    text-align: center;
+    grid-row-start: 2;
+    margin-top: 64px;
+    margin-bottom: 90px;
+  }
+  .overview {
+    padding-top: 51px;
+    height: 217.6px;
+    width: 343px;
+    grid-column: span 4;
+    text-align: center;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+  .overview__title {
+    width: 243px;
+    font-size: 32px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .overview__text {
+    width: 343px;
+    line-height: 22px;
+    font-size: 14px;
+  }
+  .wordGame__picture {
+    height: 231px;
     width: 344px;
   }
 }/*# sourceMappingURL=style.css.map */

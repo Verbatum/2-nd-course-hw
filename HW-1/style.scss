@@ -180,4 +180,69 @@ select {
   grid-column-start: 8;
   grid-column-end: 13;
 }
+
+.wordGame {
+  height: 800px;
+  background-image: url(img/bcg4.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 32px;
+  align-items: center;
+}
+
+.overview__item {
+  height: 333px;
+  width: 485px;
+  grid-column: span 5;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+}
+
+.overview{
+  height: 235.6px;
+  width: 584px;
+  grid-column: span 6;
+  grid-column-start: 7;
+  grid-column-end: 13;
+}
+  
+.overview__title {
+  width: 377px;
+  color: #fff;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-bottom: 32px;
+}
+  
+.overview__text {
+  width: 584px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 32px;
+  font-size: 18px;
+  padding-bottom: 32px;
+}
+  
+.overview__button {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  border-radius: 30px;
+  background: #9c0332;
+  width: 234.06px;
+  height: 48.6px;
+  border: none;
+}
+  
+.overview__button:hover {
+  background: #eb443f;
+}
 @import 'mobile';

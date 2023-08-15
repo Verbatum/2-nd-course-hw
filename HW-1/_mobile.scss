@@ -1,4 +1,4 @@
-@media (max-width: 767px) {
+@media (min-width: 375px) and (max-width: 767px) {
 
     .center{
         padding-left: 16px;
@@ -86,6 +86,52 @@
     }
     .picture{
         height: 236px;
+        width: 344px;
+    }
+
+    .wordGame {
+        height: 653.61px;
+        grid-template-columns: repeat(4, 1fr);
+        justify-items: center;
+        align-content: space-between;
+        grid-template-rows: repeat(3, 1fr);
+        row-gap: 37px;
+    }
+
+    .overview__item {
+        grid-column: span 4;
+        height: 231px;
+        width: 344px;
+        text-align: center;
+        grid-row-start: 2;
+        margin-top: 64px;
+        margin-bottom: 90px;
+        }
+
+        .overview{
+            padding-top: 51px;
+            height: 217.6px;
+            width: 343px;
+            grid-column: span 4;
+            text-align: center;
+            grid-row-start: 1;
+            grid-row-end: 2;
+
+        &__title {
+            width: 243px;
+            font-size: 32px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        &__text {
+            width: 343px;
+            line-height: 22px;
+            font-size: 14px;
+        }
+    }
+    .wordGame__picture {
+        height: 231px;
         width: 344px;
     }
 }
