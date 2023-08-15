@@ -72,13 +72,12 @@ function getRandomArrNumbers(el) {
 
   //
 
-    const days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-    const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+    const days = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"];
+    const months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 
     let myDate = new Date();
 
-    let fullDate = 'Дата: ' + myDate.getDate() + " " + months[myDate.getMonth()] +
-    " " + myDate.getFullYear() + " - это " + days[myDate.getDay()] + "\n" +
-    'Время: ' + myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds();
+    let fullDate = `Дата: ${myDate.getDate()} ${months[myDate.getMonth()]} ${myDate.getFullYear()} - это ${days[myDate.getDay()]}.
+    Время: ${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
 
     console.log(fullDate);
