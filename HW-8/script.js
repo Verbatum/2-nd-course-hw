@@ -9,19 +9,20 @@ const people = [
 
  //
  
-/*  function isPositive(number) {
-        return number > 0;
+ function isPositive(n) {
+        return n > 0;
     }
-    function isMale(key) {
-        return key === gender ;
+    function isMale(user) {
+        return user.gender === 'male' ;
     }
     function filter(arr, ruleFunction) {
         const output = [];
 
         for (let i = 0; i < arr.length; i++) {
-            output.push(ruleFunction(arr [i]));
+            if (ruleFunction(arr[i])) {
+            output.push(arr [i]);
           }
-        
+        }
           return output;
     }
     
@@ -34,7 +35,7 @@ const people = [
        {name: 'Оксана', gender: 'female'}
     ];
     
-    console.log(filter(human, isMale)); // Должен выводить [{name: 'Глеб', gender: 'male'},  {name: 'Олег', gender: 'male'}] */
+    console.log(filter(human, isMale)); // Должен выводить [{name: 'Глеб', gender: 'male'},  {name: 'Олег', gender: 'male'}]
 
     //
 
@@ -56,7 +57,7 @@ delayForSecond(function () {
 })
 
 
-/* function delayForSecond(cb) {
+function delayForSecond(cb) {
     setTimeout(() => {
         console.log('Прошла одна секунда');
 				if(cb) { 	cb(); }
@@ -68,5 +69,4 @@ function sayHi (name) {
     console.log(`Привет, ${name}!`);
 }
 
-clearTimeout();
-delayForSecond(sayHi('Глеб')); */
+delayForSecond(() => {sayHi('Глеб')});
