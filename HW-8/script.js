@@ -43,7 +43,7 @@ let currentDate = setInterval(() => console.log(new Date()), 3000);
 
 setTimeout(() => { clearInterval(currentDate); console.log('30 секунд прошло'); }, 30000);
 
-    
+    //
 
 function delayForSecond(callback) {
    setTimeout(() => {
@@ -56,6 +56,7 @@ delayForSecond(function () {
   console.log('Привет, Глеб!');
 })
 
+//
 
 function delayForSecond(cb) {
     setTimeout(() => {
