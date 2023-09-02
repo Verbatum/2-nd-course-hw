@@ -109,8 +109,7 @@
     };
 
     renderComments();
-    initEventListner();
-    
+        
     buttonElement.addEventListener("click", () => {
       function getCurrentDate() {
       let myDate = new Date();
@@ -157,6 +156,9 @@
         });
         renderComments();
         initEventListner();     
+
+      nameInputElement.value = "";
+      textInputElement.value = "";
        
     });
     
