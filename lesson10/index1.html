@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Книжки</title>
+  </head>
+
+  <body>
+    <div id="books">Заглушка</div>
+    <button id="show-button">Посмотреть книги</button>
+  </body>
+
+  <script>
+    const books = [
+      {
+        title: "Искусство программирования",
+        price: 1300,
+      },
+      {
+        title: "Тихо!",
+        price: 700,
+      },
+      {
+        title: "Ночной дозор",
+        price: 980,
+      },
+    ];
+
+    let totalPrice = 0;
+  for (let item of books) {
+    totalPrice += item.price; 
+  }
+  console.log(totalPrice)
+    
+  const booksList = books.map(it => it.title);
+  console.log(booksList.join(','))
+
+    const changeElement = document.getElementById("show-button");
+    const change = document.getElementById("books");
+
+
+    changeElement.addEventListener("click", () => {
+    if (change.innerHTML ==  "Заглушка") {
+        change.innerHTML = "«Искусство программирования, Тихо!, Ночной дозор = 2980 рублей»";
+    } else {
+        change.innerHTML = "Заглушка";
+    }
+    });
+
+  
+  </script>
+</html>
+
+
+
+
+
+
+
+/*     debugger */
