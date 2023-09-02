@@ -68,7 +68,13 @@
         // Добавляет обработчик клика на конкретный элемент в списке
         studentElement.addEventListener("click", () => {
           // Достает data-color из элемента
-          console.log(studentElement.dataset.color);
+          color = studentElement.dataset.color;
+          
+          if (students[color].isLover === false) {
+          students[color].color = "#FF8000"
+      }
+      renderStudents();
+
         });
       }
     };
@@ -84,13 +90,14 @@
     });
   }
 };
+
       initDeleteButtonsListeners();
 
     // метод массива map проходит по массиву и превращает каждый элемент массива в другой элемент на основе колбэка который передан в map
     const renderStudents = () => {
       const studentsHtml = students
         .map((student, index) => {
-          return `<li class="student" data-color="${student.color}">
+          return `<li class="student" data-color="${index}">
             <p class="student-name">
               ${student.name}, любимый цвет
               <span style="color: ${student.color}"> ${student.color}</span>
@@ -127,6 +134,8 @@
     });
   </script>
 </html>
+
+
 
 
 <!-- const elements = document.querySelectorAll('body');
@@ -173,8 +182,9 @@ initEventListeners(); -->
   for (const deleteButtonsElements of document.querySelectorAll(".delete-button")){          
     deleteButtonsElements.addEventListener("click", () => {
       const index = deleteButtonsElements.dataset.index;
-      delete students[index].name;
+      dstudents = students.filter((student, id) => // условие)
       renderStudents();
      });
   }
 } -->
+
