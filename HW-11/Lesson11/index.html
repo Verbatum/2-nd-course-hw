@@ -106,7 +106,9 @@
       }
 
       students.push({
-        name: nameInputElement.value,
+        name: nameInputElement.value.
+        replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;"),
         color: colorInputElement.value
       });
 
