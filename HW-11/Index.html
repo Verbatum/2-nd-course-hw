@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Проект "Комменты"</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="Style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <ul class="comments" id="comments-list">
+
+      </ul>
+      <div class="add-form" id="form">
+        <input
+          type="text"
+          class="add-form-name"
+          placeholder="Введите ваше имя"
+          id="name-input"
+        />
+        <textarea
+          type="textarea"
+          class="add-form-text"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+          id="textarea-input"
+        ></textarea>
+        <div class="add-form-row">
+          <button class="add-form-button" id="add-button">Написать</button>
+
+        </div>
+      </div>
+    </div>
+  </body>
+  <style>
+    .error {
+      background-color: red;
+    }
+  </style>
+  <script>
+    "use strict";
+    // Код писать здесь
+    // console.log("It works!");
+    const form = document.getElementById("form");
+    const nameInput = document.getElementById("name-input");
+    const textarea = document.getElementById("textarea-input");
+    const addButton = document.getElementById("add-button");
+    const comments = [
+      {
+        author: "Глеб Фокин",
+        date: "12.02.22 12:18",
+        comment: "Это будет первый комментарий на этой странице",
+        likes: 3,
+        isLiked: false,
+      },
+      {
+        author: "Варвара Н.",
+        date: "13.02.22 19:22",
+        comment: "Мне нравится как оформлена эта страница! ❤",
+        likes: 75,
+        isLiked: false,
+      },
+    ];
+    const renderComments = () => {
+      const list = document.getElementById("comments-list");
+      const commentsHTML = comments
+        .map((comment, index) => {
+          return `
+            <li class="comment" data-item=${index}>
+              <div class="comment-header">
+                <div>${comment.author}</div>
+                <div>${comment.date}</div>
+              </div>
+              <div class="comment-body">
+                <div class="comment-text">
+                  ${comment.comment}
+                </div>
+              </div>
+              <div class="comment-footer">
+                <div class="likes">
+                  <span class="likes-counter">${comment.likes}</span>
+                  <button class="like-button ${
+                    comment.isLiked ? "-active-like" : ""
+                  }" data-index="${index}"></button>
+                </div>
+              </div>
+            </li>
+            `;
+        })
+        .join("");
+      list.innerHTML = commentsHTML;
+      const commentsElements = document.querySelectorAll(".comment");
+      for (const editComment of commentsElements) {
+        editComment.addEventListener("click", (event) => {
+          const i = editComment.dataset.item;
+          textarea.value = `
+          >${comments[i].comment}
+          ${comments[i].author}
+          `;
+        });
+      }
+      initLikesListeners();
+    };
+    const addItem = () => {
+      let myDate = new Date();
+      let date = myDate.getDate();
+      let month = myDate.getMonth()+1;
+      let year = myDate.getFullYear();
+      let hours = myDate.getHours();
+      let minute = myDate.getMinutes();
+      if (date < 10) {
+        date = "0" + date;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+
+      nameInput.classList.remove("error");
+      textarea.classList.remove("error");
+      if (textarea.value === "" && nameInput.value === "") {
+        nameInput.classList.add("error");
+        textarea.classList.add("error");
+        return;
+      } else if (textarea.value === "") {
+        textarea.classList.add("error");
+        return;
+      } else if (nameInput.value === "") {
+        nameInput.classList.add("error");
+        return;
+      }
+
+      comments.push({
+        author: `${nameInput.value
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("&", "&amp;")}`,
+        date: `${date}.${month}.${year} ${hours}:${minute}`,
+        comment: `${textarea.value
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("&", "&amp;")}`,
+        likes: 0,
+        isLiked: false,
+      });
+      nameInput.value = "";
+      textarea.value = "";
+
+      renderComments();
+    };
+
+    form.addEventListener("keyup", (e) => {
+      if (e.code === "Enter") {
+        addItem();
+      }
+    });
+
+    const initLikesListeners = () => {
+      const likesBtns = document.querySelectorAll(".like-button");
+      const likes = document.querySelectorAll(".likes");
+      for (let likeBtn of likesBtns) {
+        likeBtn.addEventListener("click", (event) => {
+          const i = likeBtn.dataset.index;
+          if (!comments[i].isLiked) {
+            comments[i].isLiked = true;
+            comments[i].likes = comments[i].likes + 1;
+          } else {
+            comments[i].isLiked = false;
+            comments[i].likes = comments[i].likes - 1;
+          }
+          event.stopPropagation();
+          renderComments();
+        });
+      }
+    };
+    addButton.addEventListener("click", () => addItem());
+    renderComments();
+  </script>
+</html>
+
+
+
+<!-- const item = document.getElementById("comment");
+
+addButton.disabled = true;
+
+addButton.disabled = true;
+    nameInput.addEventListener("input", (event) => {
+      textarea.addEventListener("input", (e) => {
+        if (event.target.value.length > 0 && e.target.value.length > 0) {
+          addButton.disabled = false;
+        } else if (
+          event.target.value.length > 0 &&
+          e.target.value.length === 0
+        ) {
+          addButton.disabled = true;
+        } else if (
+          event.target.value.length === 0 &&
+          e.target.value.length > 0
+        ) {
+          addButton.disabled = true;
+        } else if (
+          event.target.value.length === 0 &&
+          e.target.value.length === 0
+        ) {
+          addButton.disabled = true;
+        }
+      });
+    });
+    textarea.addEventListener("input", (event) => {
+      nameInput.addEventListener("input", (e) => {
+        if (event.target.value.length > 0 && e.target.value.length > 0) {
+          addButton.disabled = false;
+        } else if (
+          event.target.value.length > 0 &&
+          e.target.value.length === 0
+        ) {
+          addButton.disabled = true;
+        } else if (
+          event.target.value.length === 0 &&
+          e.target.value.length > 0
+        ) {
+          addButton.disabled = true;
+        } else if (
+          event.target.value.length === 0 &&
+          e.target.value.length === 0
+        ) {
+          addButton.disabled = true;
+        }
+      });
+    });
+
+    addButton.addEventListener("click", () => addItem()); -->
