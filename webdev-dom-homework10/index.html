@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Проект "Комменты"</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <ul class="comments" id="list-comments">
+        
+      </ul>
+      <div class="add-form">
+        <input
+          type="text"
+          class="add-form-name"
+          placeholder="Введите ваше имя"
+          id="name-input"
+        />
+        <textarea
+          type="textarea"
+          class="add-form-text"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+          id="text-input"
+        ></textarea>
+        <div class="add-form-row">
+          <button class="add-form-button" id="write-button">Написать</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <style>
+    .error {
+      background-color: red;
+    }
+  </style>
+  <script>
+    "use strict";
+    const buttonElement = document.getElementById('write-button');
+    const listElement = document.getElementById('list-comments');
+    const nameInputElement = document.getElementById('name-input');
+    const textInputElement = document.getElementById('text-input');
+       
+    const comments = [
+      {
+        name: "Глеб Фокин",
+        date: "12.02.22 12:18",
+        text: "Это будет первый комментарий на этой странице",
+        likesCount: 3,
+        isLiked: false
+      },
+      {
+        name: "Варвара Н.",
+        date: "13.02.22 19:22",
+        text: "Мне нравится как оформлена эта страница! ❤",
+        likesCount: 75,
+        isLiked: true
+      },
+    ];
+
+    const initEventListner = () => {
+    const likeButtons = document.querySelectorAll('.like-button');
+
+    for (const likeButton of likeButtons) {
+    likeButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+
+      let index = likeButton.dataset.index;
+      if (comments[index].isLiked) {
+        comments[index].isLiked = false;
+        comments[index].likesCount--;
+      } else {
+        comments[index].isLiked = true;
+        comments[index].likesCount++;
+      }
+      renderComments();
+
+      });
+    }
+    }
+
+    const renderComments = () => {
+      const commentsHtml = comments.map((comment, index) => {
+        return `<li class="comment">
+          <div class="comment-header">
+          <div>${comment.name}</div>
+          <div>${comment.date}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+          ${comment.text}    
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter" >${comment.likesCount}</span>
+              <button class="like-button ${comment.isLiked ? '-active-like' : ''}" data-index="${index}"></button>
+            </div>
+          </div>
+        </li>`
+      }).join('');
+      listElement.innerHTML = commentsHtml;
+      initEventListner();
+
+    };
+
+    renderComments();
+  
+    buttonElement.addEventListener("click", () => {
+      function getCurrentDate() {
+      let myDate = new Date();
+      let date = myDate.getDate();
+      let month = myDate.getMonth()+1;
+      let year = myDate.getFullYear();
+      let hours = myDate.getHours();
+      let minute = myDate.getMinutes();
+      if (date < 10) {
+        date = "0" + date;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      if (minute < 10) {
+        minute = "0" + minute
+      }
+      const dateNow = date + '.' + month + '.' + String(year).slice(2) + ' ' + hours + ':' + minute; 
+      return dateNow;
+    }
+      const currentDate = getCurrentDate();
+      nameInputElement.classList.remove('error');
+        textInputElement.classList.remove('error');
+        if (nameInputElement.value === "" && textInputElement.value === '') {
+          nameInputElement.classList.add("error"); 
+          textInputElement.classList.add("error");
+          return;
+        } else if (nameInputElement.value === "") {
+          nameInputElement.classList.add("error");
+         return;
+      } else if (textInputElement.value === "") {
+        textInputElement.classList.add("error");
+         return;
+      }
+       comments.push({
+          name: nameInputElement.value,
+          date: currentDate,
+          text: textInputElement.value,
+          likesCount: "0",
+          myLike: false
+        });
+        renderComments();
+         
+
+      nameInputElement.value = "";
+      textInputElement.value = "";
+       
+    });
+    
+  
+   
+    
+    console.log("It works!");
+  </script>
+</html>
+
+
+
+<!-- nameInputElement.addEventListener ("keyup", (e) => {
+  if (e.code === 'Enter') {
+    enter ();
+  }
+});
+
+commentInputElement.addEventListener ("keyup", (e) => {
+  if (e.code === 'Enter') {
+    enter();
+  }
+});
+ -->
+ 
+<!--  nameInputElement.addEventListener ("input", () => {buttonElement.disabled = false;}); 
+ commentInputElement.addEventListener ("input", () => {buttonElement.disabled = false;});  -->
+
+<!--  buttonElement.disabled = true; -->
