@@ -93,8 +93,8 @@
         editComment.addEventListener("click", (event) => {
           const i = editComment.dataset.item;
           textarea.value = `
-          >${comments[i].comment}
-          ${comments[i].author}
+          >${comments[i].author}
+          ${comments[i].comment} \r\n
           `;
         });
       }
