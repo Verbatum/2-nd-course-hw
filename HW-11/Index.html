@@ -44,6 +44,7 @@
     const nameInput = document.getElementById("name-input");
     const textarea = document.getElementById("textarea-input");
     const addButton = document.getElementById("add-button");
+
     const comments = [
       {
         author: "Глеб Фокин",
@@ -179,6 +180,7 @@
         });
       }
     };
+
     addButton.addEventListener("click", () => addItem());
     renderComments();
   </script>
