@@ -26,6 +26,7 @@
         ></textarea>
         <div class="add-form-row">
           <button class="add-form-button" id="add-button">Написать</button>
+          <button class="add-form-button" id="delete-button">Удалить</button>
 
         </div>
       </div>
@@ -46,6 +47,7 @@
     const addButton = document.getElementById("add-button");
     const list = document.getElementById("comments-list");
     const item = document.getElementById("comment");
+    const delButton = document.getElementById("delete-button");
 
     let comments = [
 /*     {
@@ -207,13 +209,13 @@
           addMessage.remove();
         });
 
-/*       comments.push({
+      comments.push({
         author: `${nameInput.value
           .replaceAll("<", "&lt;")
           .replaceAll(">", "&gt;")
           .replaceAll('"', "&quot;")
           .replaceAll("&", "&amp;")}`,
-        date: `${date}.${month}.${year} ${hours}:${minute}`,
+        date: `${day}.${month}.${year} ${hours}:${minute}`,
         comment: `${textarea.value
           .replaceAll("<", "&lt;")
           .replaceAll(">", "&gt;")
@@ -221,10 +223,21 @@
           .replaceAll("&", "&amp;")}`,
         likes: 0,
         isLiked: false,
-      }); */
+      });
       nameInput.value = "";
       textarea.value = "";
 
+      renderComments();
+    };
+
+    const delLast = () => {
+      const list = document.getElementById("comments-list");
+      list.innerHTML = list.innerHTML.replace(
+        list.innerHTML.slice(list.innerHTML.lastIndexOf(`<li >`)),
+        ""
+      );
+      comments.pop();
+      initLikesListeners();
       renderComments();
     };
 
@@ -256,13 +269,9 @@
     fetchAndRenderComments();
 
     addButton.addEventListener("click", () => addItem());
-    renderComments();
-
+    delButton.addEventListener("click", () => delLast());
     
-
-
-
-
+    list.innerHTML = "<li>Комментарии загружаются...</li>";
 
   </script>
 </html>
