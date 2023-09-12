@@ -32,6 +32,9 @@
     const listElement = document.getElementById("list");
     const textInputElement = document.getElementById("text-input");
 
+
+
+
     let tasks = [
       {
         text: "Купить чай"
@@ -65,18 +68,22 @@
       const deleteButtons = document.querySelectorAll(".delete-button");
 
       for (const deleteButton of deleteButtons) {
-        deleteButton.addEventListener("click", (event) => {
-          event.stopPropagation();
+            deleteButton.addEventListener("click", (event) => {
+                event.stopPropagation();
 
-          const index = deleteButton.dataset.index;
+                    deleteButton.innerHTML = "Задача удаляется...";
+            
+                    setTimeout (() => {
+                    const index = deleteButton.dataset.index;
 
-          tasks.splice(index, 1);
+                    // TODO: Удалять из хранилища данных
+                    tasks.splice(index, 1);
 
-          renderTasks();
-        });
-      }
-    };
-
+                    renderTasks();
+                }, 1000);
+            });
+        };
+    }
     renderTasks();
 
     buttonElement.addEventListener("click", () => {
@@ -94,3 +101,23 @@
     });
   </script>
 </html>
+
+
+
+<!-- <h1 id = taskList>Список задач</h1>
+const taskElement = document.getElementById("taskList");
+
+taskElement.addEventListener("click", () => {
+
+
+    taskElement.textContent = "3";
+    setTimeout (() => {
+        taskElement.textContent = "2";
+        setTimeout (() => {
+            taskElement.textContent = "1";
+            setTimeout(() => {
+                taskElement.textContent = "Список задач";
+            }, 1000);
+        }, 1000);
+    }, 1000);
+}); -->
