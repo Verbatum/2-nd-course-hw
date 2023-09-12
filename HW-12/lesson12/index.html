@@ -5,7 +5,7 @@
     <title>Урок "Асинхронность"</title>
   </head>
 
-  <body>
+  <body class="bd" style="background-color: green;">
     <h1>Список задач</h1>
     <ul class="tasks" id="list">
       <!-- Список рендерится из JS -->
@@ -34,7 +34,25 @@
 
 
 
+    // fetch - запускает выполнение запроса к api
+    const fetchPromise = fetch("https://wedev-api.sky.pro/api/tasks/random-red", {
+            method: "GET"
+        });
 
+        // подписываемся на успешное завершение запроса с помощью then
+        fetchPromise.then((response) => {
+            // Запускаем преобразовываем "сырые" данные от API в json формат
+            const jsonPromise = response.json();
+            
+            // Подписываемся на результат преобразования
+            jsonPromise.then((responseData) => {
+                // получили данные и рендерим их в приложении
+                tasks = responseData.todos;
+                renderTasks();
+        });
+    });
+
+    //TODO: Получать из хранилища данных
     let tasks = [
       {
         text: "Купить чай"
@@ -53,11 +71,7 @@
           return `
           <li class="task">
             <p class="task-text">
-              ${task.text
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;")}
+              ${task.text}
               <button data-index="${index}" class="button delete-button">Удалить</button>
             </p>
           </li>`;
@@ -71,16 +85,13 @@
             deleteButton.addEventListener("click", (event) => {
                 event.stopPropagation();
 
-                    deleteButton.innerHTML = "Задача удаляется...";
-            
-                    setTimeout (() => {
-                    const index = deleteButton.dataset.index;
+                const index = deleteButton.dataset.index;
 
-                    // TODO: Удалять из хранилища данных
-                    tasks.splice(index, 1);
+                // TODO: Удалять из хранилища данных
+                tasks.splice(index, 1);
 
-                    renderTasks();
-                }, 1000);
+                renderTasks();
+
             });
         };
     }
@@ -90,9 +101,13 @@
       if (textInputElement.value === "") {
         return;
       }
-
+      //TODO: Добавлять задачу в хранилище данных
       tasks.push({
         text: textInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
       });
 
       renderTasks();
