@@ -5,7 +5,7 @@
     <title>Урок "Асинхронность"</title>
   </head>
 
-  <body class="bd" style="background-color: green;">
+  <body style="background-color: green;">
     <h1>Список задач</h1>
     <ul class="tasks" id="list">
       <!-- Список рендерится из JS -->
@@ -35,7 +35,7 @@
 
 
     // fetch - запускает выполнение запроса к api
-    const fetchPromise = fetch("https://wedev-api.sky.pro/api/tasks/random-red", {
+    const fetchPromise = fetch("https://wedev-api.sky.pro/api/todos", {
             method: "GET"
         });
 
