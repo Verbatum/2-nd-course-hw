@@ -44,9 +44,11 @@
     const nameInput = document.getElementById("name-input");
     const textarea = document.getElementById("textarea-input");
     const addButton = document.getElementById("add-button");
+    const list = document.getElementById("comments-list");
+    const item = document.getElementById("comment");
 
-    const comments = [
-      {
+    let comments = [
+/*     {
         author: "Глеб Фокин",
         date: "12.02.22 12:18",
         comment: "Это будет первый комментарий на этой странице",
@@ -59,10 +61,51 @@
         comment: "Мне нравится как оформлена эта страница! ❤",
         likes: 75,
         isLiked: false,
-      },
+      }, */
     ];
+
+    const fetchAndRenderComments = () => {
+      return fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
+        method: "GET",
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((response) => {
+          comments = response.comments.map((comment) => {
+            const commentDate = new Date(comment.date);
+            let day = commentDate.getDate();
+            let month = commentDate.getMonth()+1;
+            let year = commentDate.getFullYear();
+            let hours = commentDate.getHours();
+            let minute = commentDate.getMinutes();
+            if (day < 10) {
+              day = "0" + day;
+            }
+            if (month < 10) {
+              month = "0" + month;
+            }
+            if (hours < 10) {
+              hours = "0" + hours;
+            }
+            if (minute < 10) {
+             minute = "0" + minute;
+          }
+          const stringDate = `${day}.${month}.${year} ${hours}:${minute}`;
+
+          return {
+            author: comment.author.name,
+            date: stringDate,
+            comment: comment.text,
+            likes: comment.likes,
+            isLiked: comment.isLiked,
+          };
+        });
+        renderComments();
+      });
+    };
+
     const renderComments = () => {
-      const list = document.getElementById("comments-list");
       const commentsHTML = comments
         .map((comment, index) => {
           return `
@@ -88,11 +131,15 @@
             `;
         })
         .join("");
+
       list.innerHTML = commentsHTML;
+
       const commentsElements = document.querySelectorAll(".comment");
+
       for (const editComment of commentsElements) {
         editComment.addEventListener("click", (event) => {
           const i = editComment.dataset.item;
+
           textarea.value = `
           >${comments[i].author}
           ${comments[i].comment} \r\n
@@ -103,13 +150,13 @@
     };
     const addItem = () => {
       let myDate = new Date();
-      let date = myDate.getDate();
+      let day = myDate.getDate();
       let month = myDate.getMonth()+1;
       let year = myDate.getFullYear();
       let hours = myDate.getHours();
       let minute = myDate.getMinutes();
-      if (date < 10) {
-        date = "0" + date;
+      if (day < 10) {
+        day = "0" + day;
       }
       if (month < 10) {
         month = "0" + month;
@@ -121,8 +168,11 @@
         minute = "0" + minute;
       }
 
+
+
       nameInput.classList.remove("error");
       textarea.classList.remove("error");
+
       if (textarea.value === "" && nameInput.value === "") {
         nameInput.classList.add("error");
         textarea.classList.add("error");
@@ -135,7 +185,29 @@
         return;
       }
 
-      comments.push({
+      form.style.display = "none";
+      const addMessage = document.createElement("div");
+      addMessage.textContent =
+        "Погодите секундочку, комментарий загружается...";
+      addMessage.classList.add("add-message");
+      form.before(addMessage);
+
+      fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
+        method: "POST",
+        body: JSON.stringify({ text: textarea.value, name: nameInput.value }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then(() => {
+          return fetchAndRenderComments();
+        })
+        .then((response) => {
+          form.style.display = "flex";
+          addMessage.remove();
+        });
+
+/*       comments.push({
         author: `${nameInput.value
           .replaceAll("<", "&lt;")
           .replaceAll(">", "&gt;")
@@ -149,7 +221,7 @@
           .replaceAll("&", "&amp;")}`,
         likes: 0,
         isLiked: false,
-      });
+      }); */
       nameInput.value = "";
       textarea.value = "";
 
@@ -181,8 +253,17 @@
       }
     };
 
+    fetchAndRenderComments();
+
     addButton.addEventListener("click", () => addItem());
     renderComments();
+
+    
+
+
+
+
+
   </script>
 </html>
 
