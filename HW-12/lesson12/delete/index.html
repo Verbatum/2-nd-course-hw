@@ -24,10 +24,13 @@
       </div>
       <br />
       <button class="button" id="add-button">Добавить</button>
+<!--       <br />
+      <button class="button1" id="delete-button1">Стереть сохраненную строчку</button> -->
     </div>
   </body>
 
   <script>
+    
     const buttonElement = document.getElementById("add-button");
     const listElement = document.getElementById("list");
     const textInputElement = document.getElementById("text-input");
@@ -70,7 +73,7 @@
 
       listElement.innerHTML = tasksHtml;
       const deleteButtons = document.querySelectorAll(".delete-button");
-
+ 
       for (const deleteButton of deleteButtons) {
         deleteButton.addEventListener("click", (event) => {
           event.stopPropagation();
@@ -112,7 +115,8 @@
           tasks = responseData.todos;
           renderTasks();
         });
-      });
+      });    
+
 
       renderTasks();
 
@@ -120,3 +124,25 @@
     });
   </script>
 </html>
+
+<!-- const deleteButtons1 = document.getElementById("delete-button1");
+for (const deleteButton1 of deleteButtons1) {
+    deleteButton1.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      const id = deleteButton1.dataset.id;
+
+      // подписываемся на успешное завершение запроса с помощью then
+      fetch("https://webdev-hw-api.vercel.app/api/todos/" + id, {
+        method: "DELETE"
+      }).then((response) => {
+        response.json().then((responseData) => {
+          // получили данные и рендерим их в приложении
+          tasks = responseData.todos;
+          renderTasks();
+        });
+      });
+
+      renderTasks();
+    });
+  } -->
