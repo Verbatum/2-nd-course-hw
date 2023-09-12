@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+      <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -68,13 +68,17 @@
         deleteButton.addEventListener("click", (event) => {
           event.stopPropagation();
 
+          deleteButton.innerHTML = "Задача удаляется...";
+
+          setTimeout(() => {
           const index = deleteButton.dataset.index;
 
+          //TODO: Удалять из хранилища данных
           tasks.splice(index, 1);
 
           renderTasks();
-        });
-      }
+        }, 1000);
+      });
     };
 
     renderTasks();
