@@ -135,6 +135,7 @@
         .join("");
 
       list.innerHTML = commentsHTML;
+      addButton.disabled = true;
 
       const commentsElements = document.querySelectorAll(".comment");
 
@@ -170,8 +171,6 @@
         minute = "0" + minute;
       }
 
-
-
       nameInput.classList.remove("error");
       textarea.classList.remove("error");
 
@@ -196,7 +195,7 @@
 
       fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
         method: "POST",
-        body: JSON.stringify({ text: textarea.value, name: nameInput.value }),
+        body: JSON.stringify({ text: textarea.value, name: nameInput.value, }),
       })
         .then((response) => {
           return response.json();
@@ -205,6 +204,12 @@
           return fetchAndRenderComments();
         })
         .then((response) => {
+          
+          nameInput.value = "";
+          textarea.value = "";
+
+          addButton.disabled = true;
+
           form.style.display = "flex";
           addMessage.remove();
         });
@@ -245,6 +250,31 @@
       if (e.code === "Enter") {
         addItem();
       }
+    });
+
+
+
+        textarea.addEventListener("input", (event) => {
+      nameInput.addEventListener("input", (e) => {
+        if (event.target.value.length > 0 && e.target.value.length > 0) {
+          addButton.disabled = false;
+        } else if (
+          event.target.value.length > 0 &&
+          e.target.value.length === 0
+        ) {
+          addButton.disabled = true;
+        } else if (
+          event.target.value.length === 0 &&
+          e.target.value.length > 0
+        ) {
+          addButton.disabled = true;
+        } else if (
+          event.target.value.length === 0 &&
+          e.target.value.length === 0
+        ) {
+          addButton.disabled = true;
+        }
+      });
     });
 
     const initLikesListeners = () => {
