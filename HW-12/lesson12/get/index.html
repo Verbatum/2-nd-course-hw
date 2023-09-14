@@ -34,6 +34,7 @@
     const colorElement = document.getElementById("body");
 
 
+
     // fetch - запускает выполнение запроса к api
     const fetchPromise = fetch("https://wedev-api.sky.pro/api/todos", {
             method: "GET"
@@ -139,5 +140,10 @@ taskElement.addEventListener("click", () => {
 
 
 
-<!-- <body style="background-color: green;"></body>
-https://wedev-api.sky.pro/api/tasks/random-red -->
+<!-- <body style="background-color: green;"></body> -->
+
+<!-- fetch('https://wedev-api.sky.pro/api/tasks/random-red')
+.then((res) => res.json())
+.then((data) => {
+  document.body.style.backgroundColor = data.color;
+}); // меняет бэкграунд колор при каждом обновлении страницы - разный. -->
