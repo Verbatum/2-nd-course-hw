@@ -3,12 +3,45 @@
   <head>
     <title>Проект "Комменты"</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="Style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <ul class="comments" id="comments-list">
-
+        <!-- <li class="comment">
+          <div class="comment-header">
+            <div>Глеб Фокин</div>
+            <div>12.02.22 12:18</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              Это будет первый комментарий на этой странице
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">3</span>
+              <button class="like-button"></button>
+            </div>
+          </div>
+        </li>
+        <li class="comment">
+          <div class="comment-header">
+            <div>Варвара Н.</div>
+            <div>13.02.22 19:22</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              Мне нравится как оформлена эта страница! ❤
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">75</span>
+              <button class="like-button -active-like"></button>
+            </div>
+          </div>
+        </li> -->
       </ul>
       <div class="add-form" id="form">
         <input
@@ -27,86 +60,127 @@
         <div class="add-form-row">
           <button class="add-form-button" id="add-button">Написать</button>
           <button class="add-form-button" id="delete-button">Удалить</button>
-
         </div>
       </div>
     </div>
   </body>
-  <style>
-    .error {
-      background-color: red;
-    }
-  </style>
   <script>
     "use strict";
     // Код писать здесь
     // console.log("It works!");
+    const list = document.getElementById("comments-list");
     const form = document.getElementById("form");
     const nameInput = document.getElementById("name-input");
     const textarea = document.getElementById("textarea-input");
-    const addButton = document.getElementById("add-button");
-    const list = document.getElementById("comments-list");
-    const item = document.getElementById("comment");
+    let addButton = document.getElementById("add-button");
     const delButton = document.getElementById("delete-button");
-
+    const item = document.getElementById("comment");
     let comments = [
-/*     {
-        author: "Глеб Фокин",
-        date: "12.02.22 12:18",
-        comment: "Это будет первый комментарий на этой странице",
-        likes: 3,
-        isLiked: false,
-      },
-      {
-        author: "Варвара Н.",
-        date: "13.02.22 19:22",
-        comment: "Мне нравится как оформлена эта страница! ❤",
-        likes: 75,
-        isLiked: false,
-      }, */
+      // {
+      //   author: "Глеб Фокин",
+      //   date: "12.02.22 12:18",
+      //   comment: "Это будет первый комментарий на этой странице",
+      //   likes: 3,
+      //   isLiked: false,
+      // },
+      // {
+      //   author: "Варвара Н.",
+      //   date: "13.02.22 19:22",
+      //   comment: "Мне нравится как оформлена эта страница! ❤",
+      //   likes: 75,
+      //   isLiked: false,
+      // },
     ];
-
     const fetchAndRenderComments = () => {
       return fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
         method: "GET",
       })
         .then((response) => {
-          return response.json();
+          if (response.status === 500) {
+            throw new Error("Server's problem");
+          } else {
+            return response.json();
+          }
         })
         .then((response) => {
           comments = response.comments.map((comment) => {
             const commentDate = new Date(comment.date);
             let day = commentDate.getDate();
-            let month = commentDate.getMonth()+1;
+            let month = commentDate.getMonth() + 1;
             let year = commentDate.getFullYear();
-            let hours = commentDate.getHours();
-            let minute = commentDate.getMinutes();
+            let hour = commentDate.getHours();
+            let minutes = commentDate.getMinutes();
             if (day < 10) {
               day = "0" + day;
             }
             if (month < 10) {
               month = "0" + month;
             }
-            if (hours < 10) {
-              hours = "0" + hours;
+            if (hour < 10) {
+              hour = "0" + hour;
             }
-            if (minute < 10) {
-             minute = "0" + minute;
+            if (minutes < 10) {
+              minutes = "0" + minutes;
+            }
+            const stringDate = `${day}.${month}.${year} ${hour}:${minutes}`;
+            return {
+              author: comment.author.name,
+              date: stringDate,
+              comment: comment.text,
+              likes: comment.likes,
+              isLiked: comment.isLiked,
+            };
+          });
+          renderComments();
+        })
+        .catch((err) => {
+          if (err.message === "Server's problem") {
+            alert("Проблемы с сервером. Попробуйте снова");
+          } else {
+            alert("Какие-то проблемы с сетью. Попробуйте позже");
           }
-          const stringDate = `${day}.${month}.${year} ${hours}:${minute}`;
-
-          return {
-            author: comment.author.name,
-            date: stringDate,
-            comment: comment.text,
-            likes: comment.likes,
-            isLiked: comment.isLiked,
-          };
         });
-        renderComments();
-      });
     };
 
+    // fetch("https://wedev-api.sky.pro/api/v1/andrew-korovin/comments", {
+    //   method: "GET",
+    // })
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((response) => {
+    //     list.textContent =
+    //       "<div style='color:white'>Комментарии загружаются</div>";
+    //     comments = response.comments.map((comment) => {
+    //       const commentDate = new Date(comment.date);
+    //       let day = commentDate.getDate();
+    //       let month = commentDate.getMonth() + 1;
+    //       let year = commentDate.getFullYear();
+    //       let hour = commentDate.getHours();
+    //       let minutes = commentDate.getMinutes();
+    //       if (day < 10) {
+    //         day = "0" + day;
+    //       }
+    //       if (month < 10) {
+    //         month = "0" + month;
+    //       }
+    //       if (hour < 10) {
+    //         hour = "0" + hour;
+    //       }
+    //       if (minutes < 10) {
+    //         minutes = "0" + minutes;
+    //       }
+    //       const stringDate = `${day}.${month}.${year} ${hour}:${minutes}`;
+    //       return {
+    //         author: comment.author.name,
+    //         date: stringDate,
+    //         comment: comment.text,
+    //         likes: comment.likes,
+    //         isLiked: comment.isLiked,
+    //       };
+    //     });
+    //     renderComments();
+    //   });
     const renderComments = () => {
       const commentsHTML = comments
         .map((comment, index) => {
@@ -133,47 +207,29 @@
             `;
         })
         .join("");
-
       list.innerHTML = commentsHTML;
       addButton.disabled = true;
-
       const commentsElements = document.querySelectorAll(".comment");
-
       for (const editComment of commentsElements) {
         editComment.addEventListener("click", (event) => {
           const i = editComment.dataset.item;
-
           textarea.value = `
-          >${comments[i].author}
-          ${comments[i].comment} \r\n
+          >${comments[i].comment}
+          ${comments[i].author}
           `;
         });
       }
       initLikesListeners();
     };
     const addItem = () => {
-      let myDate = new Date();
-      let day = myDate.getDate();
-      let month = myDate.getMonth()+1;
-      let year = myDate.getFullYear();
-      let hours = myDate.getHours();
-      let minute = myDate.getMinutes();
-      if (day < 10) {
-        day = "0" + day;
-      }
-      if (month < 10) {
-        month = "0" + month;
-      }
-      if (hours < 10) {
-        hours = "0" + hours;
-      }
-      if (minute < 10) {
-        minute = "0" + minute;
-      }
-
+      const newDate = new Date();
+      let day = newDate.getDate();
+      let month = newDate.getMonth() + 1;
+      let year = newDate.getFullYear();
+      let hour = newDate.getHours();
+      let minutes = newDate.getMinutes();
       nameInput.classList.remove("error");
       textarea.classList.remove("error");
-
       if (textarea.value === "" && nameInput.value === "") {
         nameInput.classList.add("error");
         textarea.classList.add("error");
@@ -185,7 +241,18 @@
         nameInput.classList.add("error");
         return;
       }
-
+      if (day < 10) {
+        day = "0" + day;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+      if (hour < 10) {
+        hour = "0" + hour;
+      }
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
       form.style.display = "none";
       const addMessage = document.createElement("div");
       addMessage.textContent =
@@ -195,42 +262,60 @@
 
       fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
         method: "POST",
-        body: JSON.stringify({ text: textarea.value, name: nameInput.value, }),
+        body: JSON.stringify({
+          text: textarea.value,
+          name: nameInput.value,
+        }),
       })
         .then((response) => {
-          return response.json();
+          console.log(response);
+          if (textarea.value.length <= 2 || nameInput.value.length <= 2) {
+            throw new Error("Too little symbols");
+          } else if (response.status === 500) {
+            throw new Error("Server's problem");
+          } else {
+            return response.json();
+          }
         })
         .then(() => {
           return fetchAndRenderComments();
         })
         .then((response) => {
-          
           nameInput.value = "";
           textarea.value = "";
 
           addButton.disabled = true;
+        })
+        .catch((err) => {
+          if (err.message === "Too little symbols") {
+            alert("Введите более 2 символов");
+          } else if (err.message === "Server's problem") {
+            alert("Проблемы с сервером. Попробуйте снова");
+          } else {
+            alert("Какие-то проблемы с сетью. Попробуйте позже");
+          }
 
-          form.style.display = "flex";
-          addMessage.remove();
+          addButton.disabled = false;
         });
 
-      comments.push({
-        author: `${nameInput.value
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("&", "&amp;")}`,
-        date: `${day}.${month}.${year} ${hours}:${minute}`,
-        comment: `${textarea.value
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("&", "&amp;")}`,
-        likes: 0,
-        isLiked: false,
-      });
-      nameInput.value = "";
-      textarea.value = "";
+      form.style.display = "flex";
+      addMessage.remove();
+
+      // comments.push({
+      //   author: `${nameInput.value
+      //     .replaceAll("<", "&lt;")
+      //     .replaceAll(">", "&gt;")
+      //     .replaceAll('"', "&quot;")
+      //     .replaceAll("&", "&amp;")}`,
+      //   date: `${day}.${month}.${year} ${hour}:${minutes}`,
+      //   comment: `${textarea.value
+      //     .replaceAll("<", "&lt;")
+      //     .replaceAll(">", "&gt;")
+      //     .replaceAll('"', "&quot;")
+      //     .replaceAll("&", "&amp;")}`,
+      //   likes: 0,
+      //   isLiked: false,
+      // });
 
       renderComments();
     };
@@ -245,74 +330,12 @@
       initLikesListeners();
       renderComments();
     };
-
     form.addEventListener("keyup", (e) => {
       if (e.code === "Enter") {
         addItem();
       }
     });
-
-
-
-        textarea.addEventListener("input", (event) => {
-      nameInput.addEventListener("input", (e) => {
-        if (event.target.value.length > 0 && e.target.value.length > 0) {
-          addButton.disabled = false;
-        } else if (
-          event.target.value.length > 0 &&
-          e.target.value.length === 0
-        ) {
-          addButton.disabled = true;
-        } else if (
-          event.target.value.length === 0 &&
-          e.target.value.length > 0
-        ) {
-          addButton.disabled = true;
-        } else if (
-          event.target.value.length === 0 &&
-          e.target.value.length === 0
-        ) {
-          addButton.disabled = true;
-        }
-      });
-    });
-
-    const initLikesListeners = () => {
-      const likesBtns = document.querySelectorAll(".like-button");
-      const likes = document.querySelectorAll(".likes");
-      for (let likeBtn of likesBtns) {
-        likeBtn.addEventListener("click", (event) => {
-          const i = likeBtn.dataset.index;
-          if (!comments[i].isLiked) {
-            comments[i].isLiked = true;
-            comments[i].likes = comments[i].likes + 1;
-          } else {
-            comments[i].isLiked = false;
-            comments[i].likes = comments[i].likes - 1;
-          }
-          event.stopPropagation();
-          renderComments();
-        });
-      }
-    };
-
-    fetchAndRenderComments();
-
-    addButton.addEventListener("click", () => addItem());
-    delButton.addEventListener("click", () => delLast());
-    
-    list.innerHTML = "<li>Комментарии загружаются...</li>";
-
-  </script>
-</html>
-
-
-
-<!-- const item = document.getElementById("comment");
-
-addButton.disabled = true;
-
-addButton.disabled = true;
+    addButton.disabled = true;
     nameInput.addEventListener("input", (event) => {
       textarea.addEventListener("input", (e) => {
         if (event.target.value.length > 0 && e.target.value.length > 0) {
@@ -357,20 +380,27 @@ addButton.disabled = true;
         }
       });
     });
-
-    addButton.addEventListener("click", () => addItem()); -->
-
-
-
-<!--     const buttonDisable = () => {
-      if (nameInputElement.value === "" || textAreaElement.value === "") {
-        buttonElement.disabled = true;
-      } else {
-        buttonElement.disabled = false;
+    const initLikesListeners = () => {
+      const likesBtns = document.querySelectorAll(".like-button");
+      const likes = document.querySelectorAll(".likes");
+      for (let likeBtn of likesBtns) {
+        likeBtn.addEventListener("click", (event) => {
+          const i = likeBtn.dataset.index;
+          if (!comments[i].isLiked) {
+            comments[i].isLiked = true;
+            comments[i].likes = comments[i].likes + 1;
+          } else {
+            comments[i].isLiked = false;
+            comments[i].likes = comments[i].likes - 1;
+          }
+          event.stopPropagation();
+          renderComments();
+        });
       }
-    }
-    nameInputElement.addEventListener ("input", buttonDisable);
-    textAreaElement.addEventListener ("input", buttonDisable);
-
-    buttonDisable();
-    buttonDisable(); -->
+    };
+    fetchAndRenderComments();
+    addButton.addEventListener("click", () => addItem());
+    delButton.addEventListener("click", () => delLast());
+    list.innerHTML = "<li>Комментарии загружаются...</li>";
+  </script>
+</html>
