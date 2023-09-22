@@ -4,12 +4,12 @@ const listElement = document.getElementById("list");
 
 export const renderTasks = ({ tasks, fetchAndRenderTasks }) => {
     const tasksHtml = tasks
-      .map((tasks) => {
+      .map((task) => {
         return `
         <li class="task">
           <p class="task-text">
-            ${tasks.text}
-            <button data-id="${tasks.id}" class="button delete-button">Удалить</button>
+            ${task.text}
+            <button data-id="${task.id}" class="button delete-button">Удалить</button>
           </p>
         </li>`;
       })

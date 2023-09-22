@@ -5,9 +5,7 @@ const textarea = document.getElementById("textarea-input");
 let addButton = document.getElementById("add-button");
 const delButton = document.getElementById("delete-button");
 const item = document.getElementById("comment");
-
 let comments = [];
-
 const fetchAndRenderComments = () => {
   return fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
     method: "GET",
@@ -179,23 +177,24 @@ const addItem = () => {
   form.style.display = "flex";
   addMessage.remove();
 
+  renderComments();
+
   comments.push({
     author: `${nameInput.value
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("&", "&amp;")}`,
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("&", "&amp;")}`,
     date: `${day}.${month}.${year} ${hour}:${minutes}`,
     comment: `${textarea.value
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("&", "&amp;")}`,
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("&", "&amp;")}`,
     likes: 0,
     isLiked: false,
   });
 
-  renderComments();
 };
 
 const delLast = () => {
@@ -258,6 +257,7 @@ textarea.addEventListener("input", (event) => {
     }
   });
 });
+
 const initLikesListeners = () => {
   const likesBtns = document.querySelectorAll(".like-button");
   const likes = document.querySelectorAll(".likes");
