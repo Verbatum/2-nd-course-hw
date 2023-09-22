@@ -21,13 +21,13 @@ const fetchAndRenderTasks = () => {
 const renderTasks = () => {
   const tasksHtml = tasks
     .map((task) => {
-      return '
+      return `
       <li class="task">
         <p class="task-text">
           ${task.text}
           <button data-id="${task.id}" class="button delete-button">Удалить</button>
         </p>
-      </li>';
+      </li>`;
     })
     .join("");
 
