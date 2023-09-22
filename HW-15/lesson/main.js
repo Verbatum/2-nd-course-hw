@@ -1,59 +1,23 @@
-/* import {sanitizeHtml} from "./sanitizeHtml.js" */
+import  {renderTasks} from "./renderTasks.js"
+import { deleteTodo, getTodos, postTodo } from "./API.js"
 
 const buttonElement = document.getElementById("add-button");
-const listElement = document.getElementById("list");
 const textInputElement = document.getElementById("text-input");
 
 let tasks = [];
 
+
+
+
 const fetchAndRenderTasks = () => {
-  fetch("https://webdev-hw-api.vercel.app/api/todos", {
-    method: "GET",
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((responseData) => {
-      tasks = responseData.todos;
-      renderTasks();
-      return true;
-    });
+  getTodos().then((responseData) => {
+    tasks = responseData.todos;
+    renderTasks({ tasks, fetchAndRenderTasks });
+    return true;
+  });
 };
 
-const renderTasks = () => {
-  const tasksHtml = tasks
-    .map((task) => {
-      return '
-      <li class="task">
-        <p class="task-text">
-          ${task.text}
-          <button data-id="${task.id}" class="button delete-button">Удалить</button>
-        </p>
-      </li>';
-    })
-    .join("");
-
-  listElement.innerHTML = tasksHtml;
-  const deleteButtons = document.querySelectorAll(".delete-button");
-
-  for (const deleteButton of deleteButtons) {
-    deleteButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-
-      const id = deleteButton.dataset.id;
-
-      fetch("https://webdev-hw-api.vercel.app/api/todos/" + id, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then(() => {
-          fetchAndRenderTasks();
-        });
-    });
-  }
-};
+/* sanitizeHtml(htmlString) */
 
 fetchAndRenderTasks();
 
@@ -65,14 +29,8 @@ buttonElement.addEventListener("click", () => {
   buttonElement.disabled = true;
   buttonElement.textContent = "Элемент добавлятся...";
 
-  fetch("https://webdev-hw-api.vercel.app/api/todos", {
-    method: "POST",
-    body: JSON.stringify({
+    postTodo({
       text: textInputElement.value,
-    }),
-  })
-    .then((response) =>{
-      return response.json();
     })
     .then(() => {
       return fetchAndRenderTasks();
@@ -83,5 +41,6 @@ buttonElement.addEventListener("click", () => {
       textInputElement.value = "";
     });
 
-  renderTasks();
+  renderTasks(tasks, fetchAndRenderTasks);
 });
+/* import {sanitizeHtml} from "./sanitizeHtml.js" */
