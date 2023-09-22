@@ -41,6 +41,6 @@ buttonElement.addEventListener("click", () => {
       textInputElement.value = "";
     });
 
-  renderTasks(tasks, fetchAndRenderTasks);
+  renderTasks({tasks, fetchAndRenderTasks});
 });
 /* import {sanitizeHtml} from "./sanitizeHtml.js" */
