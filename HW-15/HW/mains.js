@@ -1,4 +1,5 @@
 import {getComments, postComments} from "./api.js"
+import { renderComments } from "./renderComents.js";
 
 const list = document.getElementById("comments-list");
 const form = document.getElementById("form");
@@ -7,7 +8,9 @@ const textarea = document.getElementById("textarea-input");
 let addButton = document.getElementById("add-button");
 const delButton = document.getElementById("delete-button");
 const item = document.getElementById("comment");
+
 let comments = [];
+
 const fetchAndRenderComments = () => {
   getComments()
     .then((response) => {
@@ -31,6 +34,7 @@ const fetchAndRenderComments = () => {
           minutes = "0" + minutes;
         }
         const stringDate = `${day}.${month}.${year} ${hour}:${minutes}`;
+
         return {
           author: comment.author.name,
           date: stringDate,
@@ -39,7 +43,7 @@ const fetchAndRenderComments = () => {
           isLiked: comment.isLiked,
         };
       });
-      renderComments();
+      renderComments({comments, list, addButton, textarea, initLikesListeners});
     })
     .catch((err) => {
       if (err.message === "Server's problem") {
@@ -50,46 +54,7 @@ const fetchAndRenderComments = () => {
     });
 };
 
-const renderComments = () => {
-  const commentsHTML = comments
-    .map((comment, index) => {
-      return `
-        <li class="comment" data-item=${index}>
-          <div class="comment-header">
-            <div>${comment.author}</div>
-            <div>${comment.date}</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              ${comment.comment}
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">${comment.likes}</span>
-              <button class="like-button ${
-                comment.isLiked ? "-active-like" : ""
-              }" data-index="${index}"></button>
-            </div>
-          </div>
-        </li>
-        `;
-    })
-    .join("");
-  list.innerHTML = commentsHTML;
-  addButton.disabled = true;
-  const commentsElements = document.querySelectorAll(".comment");
-  for (const editComment of commentsElements) {
-    editComment.addEventListener("click", (event) => {
-      const i = editComment.dataset.item;
-      textarea.value = `
-      >${comments[i].comment}
-      ${comments[i].author}
-      `;
-    });
-  }
-  initLikesListeners();
-};
+
 const addItem = () => {
   const newDate = new Date();
   let day = newDate.getDate();
@@ -97,8 +62,10 @@ const addItem = () => {
   let year = newDate.getFullYear();
   let hour = newDate.getHours();
   let minutes = newDate.getMinutes();
+
   nameInput.classList.remove("error");
   textarea.classList.remove("error");
+
   if (textarea.value === "" && nameInput.value === "") {
     nameInput.classList.add("error");
     textarea.classList.add("error");
@@ -170,7 +137,7 @@ const addItem = () => {
     isLiked: false,
   }); */
 
-  renderComments();
+  renderComments({comments, list, addButton, textarea, initLikesListeners});
 
 };
 
@@ -182,11 +149,11 @@ const delLast = () => {
   );
   comments.pop();
   initLikesListeners();
-  renderComments();
+  renderComments({comments, list, addButton, textarea, initLikesListeners});
 };
 form.addEventListener("keyup", (e) => {
   if (e.code === "Enter") {
-    addItem();
+    addItem({comments, list, addButton, textarea, initLikesListeners});
   }
 });
 addButton.disabled = true;
@@ -249,7 +216,7 @@ const initLikesListeners = () => {
         comments[i].likes = comments[i].likes - 1;
       }
       event.stopPropagation();
-      renderComments();
+      renderComments({comments, list, addButton, textarea, initLikesListeners});
     });
   }
 };
