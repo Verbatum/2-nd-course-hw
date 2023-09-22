@@ -148,7 +148,7 @@ const delLast = () => {
     ""
   );
   comments.pop();
-  initLikesListeners();
+  initLikesListeners(comments);
   renderComments({comments, list, addButton, textarea, initLikesListeners});
 };
 form.addEventListener("keyup", (e) => {
@@ -202,24 +202,7 @@ textarea.addEventListener("input", (event) => {
   });
 });
 
-const initLikesListeners = () => {
-  const likesBtns = document.querySelectorAll(".like-button");
-  const likes = document.querySelectorAll(".likes");
-  for (let likeBtn of likesBtns) {
-    likeBtn.addEventListener("click", (event) => {
-      const i = likeBtn.dataset.index;
-      if (!comments[i].isLiked) {
-        comments[i].isLiked = true;
-        comments[i].likes = comments[i].likes + 1;
-      } else {
-        comments[i].isLiked = false;
-        comments[i].likes = comments[i].likes - 1;
-      }
-      event.stopPropagation();
-      renderComments({comments, list, addButton, textarea, initLikesListeners});
-    });
-  }
-};
+
 fetchAndRenderComments();
 addButton.addEventListener("click", () => addItem());
 delButton.addEventListener("click", () => delLast());

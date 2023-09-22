@@ -1,3 +1,4 @@
+import { initLikesListeners } from "./like.js";
 export const renderComments = ({comments, list, addButton, textarea, initLikesListeners}) => {
     const commentsHTML = comments
       .map((comment, index) => {
@@ -41,5 +42,5 @@ export const renderComments = ({comments, list, addButton, textarea, initLikesLi
       });
     }
 
-    initLikesListeners();
+    initLikesListeners({comments, renderComments});
   };
