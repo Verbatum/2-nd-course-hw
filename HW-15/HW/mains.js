@@ -177,9 +177,7 @@ const addItem = () => {
   form.style.display = "flex";
   addMessage.remove();
 
-  renderComments();
-
-  comments.push({
+/*   comments.push({
     author: `${nameInput.value
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;")
@@ -193,7 +191,9 @@ const addItem = () => {
       .replaceAll("&", "&amp;")}`,
     likes: 0,
     isLiked: false,
-  });
+  }); */
+
+  renderComments();
 
 };
 
