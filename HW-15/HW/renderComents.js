@@ -1,4 +1,4 @@
-import { initLikesListeners } from "./like.js";
+
 export const renderComments = ({comments, list, addButton, textarea, initLikesListeners}) => {
     const commentsHTML = comments
       .map((comment, index) => {

@@ -1,5 +1,6 @@
 import {getComments, postComments} from "./api.js"
 import { renderComments } from "./renderComents.js";
+import { initLikesListeners } from "./like.js";
 
 const list = document.getElementById("comments-list");
 const form = document.getElementById("form");
@@ -148,7 +149,7 @@ const delLast = () => {
     ""
   );
   comments.pop();
-  initLikesListeners(comments);
+  initLikesListeners({comments, renderComments});
   renderComments({comments, list, addButton, textarea, initLikesListeners});
 };
 form.addEventListener("keyup", (e) => {
