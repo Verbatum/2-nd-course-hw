@@ -42,5 +42,5 @@ export const renderComments = ({comments, list, addButton, textarea, initLikesLi
       });
     }
 
-    initLikesListeners({comments, renderComments});
+    initLikesListeners({comments, renderComments, list, addButton, textarea});
   };

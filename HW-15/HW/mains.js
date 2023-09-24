@@ -149,7 +149,7 @@ const delLast = () => {
     ""
   );
   comments.pop();
-  initLikesListeners({comments, renderComments});
+  initLikesListeners({comments, renderComments, list, addButton, textarea});
   renderComments({comments, list, addButton, textarea, initLikesListeners});
 };
 form.addEventListener("keyup", (e) => {
