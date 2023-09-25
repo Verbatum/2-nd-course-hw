@@ -1,5 +1,14 @@
+const host = 'https://wedev-api.sky.pro/api/v2/aleksey-kuzmenchuk/comments';
+const loginHost = "https://wedev-api.sky.pro/api/user/login";
+
+/* export let token;
+
+export const setToken = (newToken) => {
+  token = newToken;
+} */
+
 export const getComments = () => {
-    return fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
+    return fetch(host, {
         method: "GET",
       })
         .then((response) => {
@@ -12,8 +21,11 @@ export const getComments = () => {
 };
 
 export const postComments = ({textarea, nameInput}) => {
-    return fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
+    return fetch(host, {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           text: textarea.value,
           name: nameInput.value,
@@ -29,4 +41,16 @@ export const postComments = ({textarea, nameInput}) => {
             return response.json();
           }
         })
-}; 
+};
+
+export function fetchLogin(login, password) {
+  return fetch(loginHost, {
+    method: 'POST',
+    body: JSON.stringify({
+      login,
+      password,
+    }),
+  }).then((response) => {
+    return response.json();
+  })
+};
