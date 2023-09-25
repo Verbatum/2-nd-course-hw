@@ -1,4 +1,3 @@
-import { initLikesListeners } from "./like.js";
 import { sanitizeHtml } from "./sanitize.js";
 export const renderComments = ({comments, list, addButton, textarea, initLikesListeners}) => {
     const commentsHTML = comments
