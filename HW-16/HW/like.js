@@ -1,3 +1,4 @@
+import { renderComments } from "./renderComents.js";
 export const initLikesListeners = ({comments, renderComments, list, addButton, textarea}) => {
     const likesBtns = document.querySelectorAll(".like-button");
     const likes = document.querySelectorAll(".likes");

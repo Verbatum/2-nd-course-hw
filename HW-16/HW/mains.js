@@ -122,6 +122,22 @@ const addItem = () => {
   form.style.display = "flex";
   addMessage.remove();
 
+/*   comments.push({
+    author: `${nameInput.value
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("&", "&amp;")}`,
+    date: `${day}.${month}.${year} ${hour}:${minutes}`,
+    comment: `${textarea.value
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("&", "&amp;")}`,
+    likes: 0,
+    isLiked: false,
+  }); */
+
   renderComments({comments, list, addButton, textarea, initLikesListeners});
 
 };
