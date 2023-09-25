@@ -1,5 +1,5 @@
 export const getComments = () => {
-    return fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
+    return fetch("https://wedev-api.sky.pro/api/v2/aleksey-kuzmenchuk/comments", {
         method: "GET",
       })
         .then((response) => {
@@ -12,7 +12,7 @@ export const getComments = () => {
 };
 
 export const postComments = ({textarea, nameInput}) => {
-    return fetch("https://wedev-api.sky.pro/api/v1/aleksey-kuzmenchuk/comments", {
+    return fetch("https://wedev-api.sky.pro/api/v2/aleksey-kuzmenchuk/comments", {
         method: "POST",
         body: JSON.stringify({
           text: textarea.value,
