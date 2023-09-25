@@ -1,5 +1,5 @@
 import { loginComment, setToken, token } from "./api.js";
-import { nameInputElement } from "./main.js";
+import { nameInputElement } from "./mains.js";
  
 const loginButton  = document.querySelector('#login-button')
 const loginInputElement = document.getElementById('login-input');

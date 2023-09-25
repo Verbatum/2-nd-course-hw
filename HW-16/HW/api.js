@@ -1,4 +1,4 @@
-const commentURL = 'https://wedev-api.sky.pro/api/v2/anton-shlyapkin/comments';
+const commentURL = 'https://wedev-api.sky.pro/api/v2/aleksey-kuzmenchuk/comments';
 const userURL = 'https://wedev-api.sky.pro/api/user/login';
 const regURL = 'https://wedev-api.sky.pro/api/user';
 

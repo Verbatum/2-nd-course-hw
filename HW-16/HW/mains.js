@@ -26,7 +26,7 @@ let comments = [];
 function getCommentList(showLoading) {
   if (showLoading == true) {
     document.getElementById('comment-loading').style.display = 'flex'; 
-    document.getElementById('authorization-input').style.display = 'none';
+    document.getElementById('authorization-input').style.color = 'green';
   } else {
     document.getElementById('comment-loading').style.display = 'none';
   };
@@ -54,11 +54,11 @@ function getCommentList(showLoading) {
 
 getCommentList(true); 
 
-document.getElementById('authorization-input').style.display = 'flex';
+document.getElementById('authorization-input').style.color = 'green';
 authorizationElement.addEventListener("click", () => {
   //console.log("authorizationElement");
   document.getElementById('login-form').style.display = 'flex';
-  document.getElementById('authorization-input').style.display = 'none';
+  document.getElementById('authorization-input').style.color = 'green';
   login();
 })
 
