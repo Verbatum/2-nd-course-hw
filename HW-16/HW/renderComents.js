@@ -1,4 +1,4 @@
-import {sanitizeHtml} from "./sanitize.js"
+
 export const renderComments = ({comments, list, addButton, textarea, initLikesListeners}) => {
     const commentsHTML = comments
       .map((comment, index) => {
