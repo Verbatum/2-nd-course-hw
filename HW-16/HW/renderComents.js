@@ -1,16 +1,17 @@
 import { initLikesListeners } from "./like.js";
+import { sanitizeHtml } from "./sanitize.js";
 export const renderComments = ({comments, list, addButton, textarea, initLikesListeners}) => {
     const commentsHTML = comments
       .map((comment, index) => {
         return `
           <li class="comment" data-item=${index}>
             <div class="comment-header">
-              <div>${comment.author}</div>
+              <div>${sanitizeHtml(comment.author)}</div>
               <div>${comment.date}</div>
             </div>
             <div class="comment-body">
               <div class="comment-text">
-                ${comment.comment}
+                ${sanitizeHtml(comment.comment)}
               </div>
             </div>
             <div class="comment-footer">
