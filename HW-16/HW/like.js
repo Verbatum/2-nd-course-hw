@@ -14,3 +14,7 @@ export const initEventListeners = ({comments, renderComments, checkInput, initCo
     })
   })
   };
+  // Счётчик лайков и отображение лайков на комментарии
+  import {initEventListeners} from "./like.js";
+  initLikesListeners({comments, renderComments, list, addButton, textarea});
+  {comments, renderComments, checkInput, initCommentingListeners, editCommentListeners}
