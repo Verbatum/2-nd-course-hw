@@ -1,96 +1,123 @@
-const commentURL = 'https://wedev-api.sky.pro/api/v2/aleksey-kuzmenchuk/comments';
-const userURL = 'https://wedev-api.sky.pro/api/user/login';
-const regURL = 'https://wedev-api.sky.pro/api/user';
+// ИМПОРТ МОДУЛЕЙ
+import { renderApp } from "./renderModule.js";
+import { initLikeButtonOnOff } from "./renderModule.js";
 
-export let token;
-export const setToken = (newToken) => {
-  token = newToken;
-};
-
-//получение данных с api
-export function getComments() {
-    return fetch(commentURL, {
-        method: "GET", 
+// GET комментариев
+const fetchRenderComments = (comments, token, name) => {
+    // const containerElement = document.querySelector('.container');
+    fetch("https://webdev-hw-api.vercel.app/api/v2/aleksey-kuzmenchuk/comments", {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+            Authorization: token,
         },
+    }).then((response) => {
+        return response.json();
+    }).then((responseData) => {
+        const formatComments = responseData.comments.map((comment) => {
+            return {
+                name: comment.author.name,
+                login: comment.author.login,
+                text: comment.text,
+                date: new Date().toLocaleString().slice(0, -3),
+                likes: comment.likes,
+                isLiked: false,
+            };
+        })
+        // получили данные и рендерим их в приложении
+        comments = formatComments;
+        renderApp(comments, token, name);
     })
-    .then((response) => {
+}
+
+// POST КОММЕНТАРИЕВ
+const addComment = (comments, token) => {
+    const nameInputElement = document.getElementById('name-input')
+    const commentInputElement = document.getElementById('comment-input')
+    fetch("https://webdev-hw-api.vercel.app/api/v2/aleksey-kuzmenchuk/comments", {
+        method: 'POST',
+        headers: {
+            Authorization: token,
+        },
+        body: JSON.stringify({
+            name: nameInputElement.value,
+            text: commentInputElement.value,
+        }),
+    })
+        .then((response) => {
+
+            // Ветвление с выбрасыванием ошибки в случае отключенного интернета
+            if (response.status === 500) {
+                throw new Error('Сервер сломался')
+                // ошибка при вводе коротких данных, менее 3 символов в поле имя и в поле комменты
+            } else if (response.status === 400) {
+                throw new Error('Слишком короткое значение, поле имя и комментарий должно содержать хотя бы 3 символа')
+            } else {
+                return response.json();
+            }
+        })
+        .then(() => {
+            // GET через вызов функции
+            return fetchRenderComments(comments, token);
+        })
+        .then(() => {
+            // Отработка функционала кнопки и полей после публикации комментария
+            buttonElement.disabled = false;
+            buttonElement.textContent = 'Добавить'
+            commentInputElement.value = ''
+        }).catch((error) => {
+            // Alert с ошибкой, в случае, если интернет не функционирует - РАБОТАЕТ
+            if (error.message === 'Failed to fetch') {
+                alert('Кажется что-то пошло не так, проверьте интернет соединение');
+                //  Alert с ошибкой, в случае, если выпала ошибка 500 
+            } else if (error === 'Сервер сломался') {
+                alert('Кажется что-то пошло не так...');
+                // Alert с ошибкой, в случае введения в полях имени и коммента менее 3 символов
+            } else if (error.message === "Слишком короткое значение, поле имя и комментарий должно содержать хотя бы 3 символа") {
+                alert('Минимальное количество символов в полях ввода не менее трех')
+            }
+            // user exp: возврат активной кнопки после публикации коммента 
+            buttonElement.disabled = false;
+            buttonElement.textContent = 'Добавить'
+        })
+    initLikeButtonOnOff(comments, token)
+
+}
+
+export function loginUser({ login, password }) {
+    return fetch("https://webdev-hw-api.vercel.app/api/user/login", {
+        method: 'POST',
+        body: JSON.stringify({
+            login,
+            password,
+        }),
+    }).then((response) => {
+        console.log(response);
+        if (response.status === 400) {
+            throw new Error('Неверный логин или пароль')
+        }
         return response.json();
     });
 }
 
-//добавление нового коментария в api
-export function postComment(comment, name, func) {
-  return fetch(commentURL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-    body : JSON.stringify({
-      text: func(comment),
-      name: func(name),
-      date: new Date(),
-      likes: 0,
-      isLiked: false,
-      forceError: false,
-    })
-  })
-  .then((response) => {
-    if (response.status === 201) {
-      return response.json()
-    } else {
-      switch (response.status) {
-        case 400: throw new Error('Имя и комментарий не могут быть меньше 3-х символов')
-        case 500: throw new Error('Сервер упал')
-        default: throw new Error('Что-то пошло не так, попробуйте позже')
-      }
-    }
-  })
+
+export function registerUser({ login, password, name }) {
+    return fetch("https://webdev-hw-api.vercel.app/api/user", {
+        method: 'POST',
+        body: JSON.stringify({
+            login,
+            password,
+            name,
+        }),
+    }).then((response) => {
+        if (response.status === 400) {
+            throw new Error('Такой пользователь уже существует')
+        }
+        return response.json();
+    });
 }
 
-//авторизация
-export function loginComment(login, password) { 
-  return fetch(userURL, {
-    method: "POST",
-    body: JSON.stringify({
-      login: login,
-      password: password,
-    })
-  }).then((response) => {
-    if (response.status === 201) {
-      console.log('Пользователь авторизован!')
-      return response.json()
-    } else {
-      switch (response.status) {
-        case 400: throw new Error('Неправильный логин или пароль!')
-        case 500: throw new Error('Сервер упал')
-        default: throw new Error('Что-то пошло не так, попробуйте позже')
-      }
-    }  
-})
-}
 
-//Регистрация
-export function registration(login, password, userName) {
-  return fetch(regURL, {
-    method: "POST",
-    body : JSON.stringify({
-      login: login,
-      name: userName,
-      password: password,
-    })
-  })
-  .then((response) => {
-    if (response.status === 201) {
-      console.log('Вы успешно зарегистрировались!')
-      return response.json()
-    } else {
-      switch (response.status) {
-        case 400: throw new Error('Пользователь с таким логином уже сущетсвует!')
-        case 500: throw new Error('Сервер упал')
-        default: throw new Error('Что-то пошло не так, попробуйте позже')
-      }
-    }      
-  })
-}
+
+// ЭКСПОРТ ФУНКЦИЙ ИЗ МОДУЛЯ
+export { addComment }
+export { fetchRenderComments }
