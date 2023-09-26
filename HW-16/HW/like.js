@@ -1,18 +1,16 @@
-export const initLikesListeners = ({comments, renderComments, list, addButton, textarea}) => {
-    const likesBtns = document.querySelectorAll(".like-button");
-    const likes = document.querySelectorAll(".likes");
-    for (let likeBtn of likesBtns) {
-      likeBtn.addEventListener("click", (event) => {
-        const i = likeBtn.dataset.index;
-        if (!comments[i].isLiked) {
-          comments[i].isLiked = true;
-          comments[i].likes = comments[i].likes + 1;
-        } else {
-          comments[i].isLiked = false;
-          comments[i].likes = comments[i].likes - 1;
-        }
-        event.stopPropagation();
-        renderComments({comments, list, addButton, textarea, initLikesListeners});
-      });
-    }
+export const initEventListeners = ({comments, renderComments, checkInput, initCommentingListeners, editCommentListeners}) => {
+  const likeElements = document.querySelectorAll(".like-button");
+  likeElements.forEach((element, index) => {
+    element.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (comments[index].isLiked) {
+        comments[index].isLiked = false;
+        comments[index].likes -= 1;
+      } else {
+        comments[index].isLiked = true;
+        comments[index].likes += 1;
+      }
+      renderComments({ comments, checkInput, initEventListeners, initCommentingListeners, editCommentListeners });
+    })
+  })
   };
