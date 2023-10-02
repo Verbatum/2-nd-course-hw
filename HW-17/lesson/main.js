@@ -17,3 +17,6 @@ const fetchAndRenderTasks = () => {
 // fetchAndRenderTasks();
 
 renderLogin({fetchAndRenderTasks});
+
+/* "format": "prettier --write ./src/" */
+//"lint:js": "eslint ./src/**/*.js"
