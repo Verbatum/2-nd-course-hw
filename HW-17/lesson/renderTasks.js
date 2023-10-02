@@ -1,21 +1,26 @@
 import { deleteTodo, postTodo } from "./api.js";
+import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js"
 
 const listElement = document.getElementById("list");
 
 export const renderTasks = ({ tasks, fetchAndRenderTasks }) => {
   const appElement = document.getElementById("app");
 
+  const country = "ru";
   const tasksHtml = tasks
-    .map((task) => {
-      return `
-      <li class="task">
-        <p class="task-text">
-          ${task.text}
-          <button data-id="${task.id}" class="button delete-button">Удалить</button>
-        </p>
-      </li>`;
-    })
-    .join("");
+      .map((task) => {
+        return `
+            <li class="task">
+              <p class="task-text">
+                ${task.text} (Создал: ${task.user?.name ?? "Неизвестно"})
+                <button data-id="${
+                  task.id
+                }" class="button delete-button">Удалить</button>
+              </p>
+              <p><i>Задача создана: ${country === "ru" ? formatDateToRu(new Date(task.created_at)) : formatDateToUs(new Date(task.created_at))}</i></p>
+            </li>`;
+      })
+      .join("");
 
     const appHtml = `
     <h1>Список задач</h1>
