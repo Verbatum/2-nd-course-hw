@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 // Функции либо общие, либо не относящиеся ни к какому объекту.
 function safeInput(str) {
     return str.replaceAll("&", "&amp;")
@@ -15,7 +14,7 @@ function delay(interval = 300) {
     });
 }
 
-function getDate(date) {
+/* function getDate(date) {
     const options = {
         year: '2-digit',
         month: 'numeric',
@@ -25,7 +24,7 @@ function getDate(date) {
     }
     const newDate = new Date(date);
     return newDate.toLocaleString('ru-RU', options).replace(',', '');
-}
+} */
 
 function validate(input, text) {
     if (input.value === '' || input.value === '\n') {
@@ -41,4 +40,4 @@ function validate(input, text) {
     }
 }
 
-export { validate, getDate, delay, safeInput };
+export { validate, /* getDate, */ delay, safeInput };

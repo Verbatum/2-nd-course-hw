@@ -1,4 +1,5 @@
-import { delay, getDate, } from "./service-functions.js";
+import { format } from "date-fns";
+import { delay } from "./service-functions.js";
 import { getComments } from "./API.js"
 let comments = [];
 
@@ -26,6 +27,7 @@ function getAndRenderComments(token) {
 //Отрисовать, при true аргументе рисует заглушку
 function renderComments(isFirstOpen = 0, token) {
     const commentsList = document.querySelector('ul.comments');
+    const formattedDate = format(new Date(), 'yyyy/MM/dd hh:mm:ss');
     if (isFirstOpen) {
         commentsList.innerHTML = `
     <li class="comment" style="display: flex;">
@@ -43,8 +45,7 @@ function renderComments(isFirstOpen = 0, token) {
     <div class="comment-header">
     <div>${comment.author.name}
     </div>
-    <div>${getDate(comment.date)}
-    </div >
+    <div>${formattedDate}</div>
     </div >
     <div class="comment-body">
     <div class="comment-text">   
