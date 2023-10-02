@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "dev": "webpack --mode development --watch"
+    "dev": "webpack --mode development --watch"    
   },
   "author": "",
   "license": "ISC",
@@ -21,3 +21,5 @@
     "webpack-cli": "^5.1.4"
   }
 }
+
+/* "format": "prettier --write ./src/" */
