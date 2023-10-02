@@ -1,5 +1,6 @@
 import { deleteTodo, postTodo } from "./api.js";
 import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js"
+import { format } from "date-fns";
 
 const listElement = document.getElementById("list");
 
@@ -8,19 +9,29 @@ export const renderTasks = ({ tasks, fetchAndRenderTasks }) => {
 
   const country = "ru";
   const tasksHtml = tasks
-      .map((task) => {
-        return `
-            <li class="task">
-              <p class="task-text">
-                ${task.text} (Создал: ${task.user?.name ?? "Неизвестно"})
-                <button data-id="${
-                  task.id
-                }" class="button delete-button">Удалить</button>
-              </p>
-              <p><i>Задача создана: ${country === "ru" ? formatDateToRu(new Date(task.created_at)) : formatDateToUs(new Date(task.created_at))}</i></p>
-            </li>`;
-      })
-      .join("");
+  .map((task) => {
+		// Вызываем функцию format из date-fns, первый параметр — это дата, которую
+		// хотим отформатировать, второй параметр — это строка: к какому формату
+		// желаем привести дату. Обратите внимание MM — это номер месяца,
+		// mm — это минуты
+    // const now = new Date();
+    // format(now, "dd/MM/yyyy hh:mm"); // 26/03/2023 10:33
+    // format(now, "MM-dd-yyyy hh:mm"); // 03-26-2023 10:33
+    // format(now, "dd.MM.yyyy hh:mm:ss"); // 26.03.2023 10:33:41
+
+    const createDate = format(new Date(task.created_at), 'dd/MM/yyyy hh:mm');
+    return `
+        <li class="task">
+          <p class="task-text">
+            ${task.text} (Создал: ${task.user?.name ?? "Неизвестно"})
+            <button data-id="${
+              task.id
+            }" class="button delete-button">Удалить</button>
+          </p>
+          <p><i>Задача создана: ${createDate}</i></p>
+        </li>`;
+  })
+  .join("");
 
     const appHtml = `
     <h1>Список задач</h1>
