@@ -1,17 +1,18 @@
 // Функции либо общие, либо не относящиеся ни к какому объекту.
 function safeInput(str) {
-    return str.replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;");
+  return str
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 function delay(interval = 300) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve();
-        }, interval);
-    });
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, interval);
+  });
 }
 
 /* function getDate(date) {
@@ -27,17 +28,17 @@ function delay(interval = 300) {
 } */
 
 function validate(input, text) {
-    if (input.value === '' || input.value === '\n') {
-        input.classList.add('error__name');
-        input.placeholder = 'Поле не может быть пустым!';
-        input.value = '';
-        setTimeout(() => {
-            input.classList.remove('error__name')
-            input.placeholder = `Введите ${text}`;
-        }, 1500);
-    } else {
-        return true;
-    }
+  if (input.value === "" || input.value === "\n") {
+    input.classList.add("error__name");
+    input.placeholder = "Поле не может быть пустым!";
+    input.value = "";
+    setTimeout(() => {
+      input.classList.remove("error__name");
+      input.placeholder = `Введите ${text}`;
+    }, 1500);
+  } else {
+    return true;
+  }
 }
 
 export { validate, /* getDate, */ delay, safeInput };
